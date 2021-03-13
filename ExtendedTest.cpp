@@ -160,7 +160,7 @@ void testRemoveSearch(Relation r) {
 	for (int c = min; c <= max; c++) {
 		assert(smm.remove(c, c+1) == false);
 		if (c%2==0)
-            assert(smm.remove(c,c) == true);
+             assert(smm.remove(c,c) == true);
 		testIteratorSteps(smm);
 	}
 	
@@ -178,7 +178,7 @@ void testRemoveSearch(Relation r) {
 }
 
 void testRemove() {
-	testRemoveSearch(asc);
+ 	testRemoveSearch(asc);
 	testRemoveSearch(desc);
 }
 
@@ -249,10 +249,54 @@ void testIterator() {
 	testIterator(desc);
 }
 
+/*
+//test functia suplimentara
+void testBag()
+{
+	SortedMultiMap smm = SortedMultiMap(asc);
+	smm.add(1, 1);
+	smm.add(1, 2);
+	smm.add(3, 4);
+	
+	pair<TKey, int>* b = smm.bag_Schlussel();
+	for (int i = 0; i < 3; i++)
+		cout << "Cheie: " << b[i].first << "\tFrecventa" << b[i].second<<endl;
+	cout << endl;
+
+}*/
+
+
+//test iterator (functia suplimentara)
+void testIteratorBack()
+{
+	SortedMultiMap smm = SortedMultiMap(asc);
+	SMMIterator it = smm.iterator();
+	for (int i = 0; i < 10; i++)
+		smm.add(i,i);
+	int count = smm.size();
+
+	for (int i = count; i > count / 2; i--)
+		it.previous();
+
+	it.end();
+	int c = 0;
+	while (it.valid()) {
+		c++;
+		it.previous();
+	}
+	assert(c == smm.size());
+
+}
+
 void testAllExtended() {
 	testCreate();
 	testSearch();
 	testRemove();
 	testIterator();
 	testRelations();
+
+//	testBag();
+
+	testIteratorBack();
 }
+
